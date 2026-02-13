@@ -135,6 +135,31 @@ def test_invalid_email_input():
 # Student 4: Test positive deposit
 # - Verify that depositing a positive amount correctly increases the balance.
 # Target Method: deposit()
+# ===========================
+# Test: Positive Deposit
+# Author: Brian Pedroza
+# Date: 2026-02-12
+# Description: Test that a positive deposit increases the account balance.
+# ===========================
+
+def test_deposit_positive_amount():
+    """Test depositing a positive amount increases balance"""
+    # Create a new account
+    # We add 'balance=0.0' here to make sure it starts at zero!
+    account = Account(name="Test User", email="test@example.com", role="user", balance=0.0)
+    
+    # Check initial balance is 0
+    assert account.balance == 0.0
+
+    # Perform the deposit
+    account.deposit(100.0)
+
+    # Verify the result
+    assert account.balance == 100.0
+
+    # Extra check: Deposit more
+    account.deposit(50.0)
+    assert account.balance == 150.0
 
 # Student 5: Test deposit with zero/negative values
 # - Ensure zero or negative deposits are rejected.
