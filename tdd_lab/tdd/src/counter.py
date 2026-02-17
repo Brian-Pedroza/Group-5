@@ -11,6 +11,8 @@ COUNTERS = {}
 @app.route('/counters/<name>', methods=['POST'])
 def create_counter(name):
     """Create a counter"""
+    if name == "reset":
+        return jsonify({"error": "Counter name 'reset' is reserved"}), status.HTTP_400_BAD_REQUEST
     if counter_exists(name):
         return jsonify({"error": f"Counter {name} already exists"}), status.HTTP_409_CONFLICT
     COUNTERS[name] = 0
@@ -56,3 +58,11 @@ def increment_counter(name):
     COUNTERS[name] += 1
 
     return jsonify({name: COUNTERS[name]}), status.HTTP_200_OK
+
+# Reset all counters - Alvaro Avalos-Morales
+@app.route('/counters/reset', methods=['POST'])
+def reset_counters():
+    """Reset all counters"""
+    for key in COUNTERS:
+        COUNTERS[key] = 0
+    return jsonify({"message": "All counters have been reset"}), status.HTTP_200_OK

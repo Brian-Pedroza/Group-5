@@ -86,6 +86,34 @@ class TestCounterEndpoints:
         # Reset to avoid name conflicts
         COUNTERS.clear()
 
+    # Reset all counters - Alvaro
+    def test_reset_all_counters(self, client):
+        """It should reset all counters"""
+
+        # LOCAL IMPORT to keep my changes inside this function and
+        # avoid  name conflicts (foo, bar)
+        from src.counter import COUNTERS
+        COUNTERS.clear() 
+
+        # step 1: Create two counters
+        client.post('/counters/foo')
+        client.post('/counters/bar')
+
+        # step 2: Increment both counters to ensure they are not at 0
+        client.put('/counters/foo')
+        client.put('/counters/bar')
+
+        # Step 3: Check that both counters are at 1
+        # initial_res = client.get('/counters')
+        # assert initial_res.get_json() == {"foo": 1, "bar": 1}
+
+        # Step 4: Reset all counters
+        client.post('/counters/reset')
+
+        # Confirm both counters are reset to 0
+        result = client.get('/counters')
+        assert result.get_json() == {"foo": 0, "bar": 0}
+
 
 @pytest.mark.usefixtures("client")
 def test_list_all_counters(client):

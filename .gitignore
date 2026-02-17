@@ -4,6 +4,9 @@ Phase2venv/
 Phase3Venv/
 .DS_Store
 
+# Ignore phase 2 virtual machien - Brian
+Phase2venv/
+.DS_Store
 # Excluse environment specific configs
 .pyc
 _pycache_/
