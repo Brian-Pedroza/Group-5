@@ -282,4 +282,4 @@ class TestCounterEndpoints:
     # One new test that I authored
     def test_dummy_for_pipeline(self):
         """Dummy test to fulfill the Pipeline PR requirement"""
-        assert True
+        assert False  # <-- I BROKE IT ON PURPOSE!
