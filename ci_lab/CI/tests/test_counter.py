@@ -273,10 +273,11 @@ class TestCounterEndpoints:
     def test_validate_counter_name(self, client):
         """It should prevent creating counters with special characters"""
         response = client.post('/counters/test@123')
-
         assert response.status_code == HTTPStatus.BAD_REQUEST
 
-        # TODO: Add an assertion to verify the error message specifically says 'Invalid counter name'S
+        # Check the error message in the JSON response - Brian
+        data = response.get_json()
+        assert data["error"] == "Invalid counter name. Only alphanumeric and underscores allowed."
 
     # One new test that I authored
     def test_dummy_for_pipeline(self):
