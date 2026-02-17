@@ -19,13 +19,13 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd ci_lab
+          cd ci_lab/CI
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Run tests with coverage gate  # Added coverage-gate
         run: |
-          cd ci_lab
+          cd ci_lab/CI
           pytest --cov=src --cov-fail-under=80
 
       - name: Install Flake8
@@ -34,5 +34,5 @@ jobs:
 
       - name: Run Flake8 Linting
         run: |
-          cd ci_lab
+          cd ci_lab/CI
           flake8 src --count --select=E9,F63,F7,F82 --show-source --statistics
